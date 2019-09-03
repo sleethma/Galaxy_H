@@ -19,10 +19,10 @@ FASTLED_USING_NAMESPACE
 //#define CLK_PIN   4
 #define LED_TYPE    WS2812B
 #define COLOR_ORDER GRB
-#define NUM_LEDS    49
+#define NUM_LEDS    60
 CRGB leds[NUM_LEDS];
 
-#define BRIGHTNESS          96
+#define BRIGHTNESS          250
 #define FRAMES_PER_SECOND  40
 
 void setup() {
@@ -66,19 +66,25 @@ void loop()
 void confetti() 
 {
   int chanceOfGlitter = 80;
-  fadeToBlackBy( leds, NUM_LEDS, 100);
+  fadeToBlackBy( leds, NUM_LEDS, 10);
   int pos = random16(NUM_LEDS);
   int sat = 128;
-//leds[pos] = CHSV(gHue, sat, 256);
+leds[pos] = CHSV(gHue, sat, 255);
 
-  leds[pos] += CHSV( gHue + random8(64), 200, brighten8_raw(50));
-          Serial.println("luma = " + leds[pos].getLuma()); 
+//  leds[pos] += CHSV( gHue + random8(64), 200, brighten8_raw(50));
+          Serial.println("luma = ");
+          Serial.println(leds[pos].getLuma()); 
 
-      fadeToBlackBy( leds, NUM_LEDS, 1);
+      leds[pos].fadeToBlackBy( 64 );
   }
 
   
 
+
+
+//  if( random8() < chanceOfGlitter) {
+//    leds[ random16(NUM_LEDS) ] += CRGB::White;
+//  }
 
 
 //  if( random8() < chanceOfGlitter) {
