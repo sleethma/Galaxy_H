@@ -15,14 +15,14 @@ FASTLED_USING_NAMESPACE
 #warning "Requires FastLED 3.1 or later; check github for latest code."
 #endif
 
-#define DATA_PIN    7
+#define DATA_PIN    4
 //#define CLK_PIN   4
 #define LED_TYPE    WS2812B
 #define COLOR_ORDER GRB
-#define NUM_LEDS    60
+#define NUM_LEDS    81
 CRGB leds[NUM_LEDS];
 
-#define BRIGHTNESS          250
+#define BRIGHTNESS          125
 #define FRAMES_PER_SECOND  40
 
 void setup() {
@@ -90,4 +90,3 @@ leds[pos] = CHSV(gHue, sat, 255);
 //  if( random8() < chanceOfGlitter) {
 //    leds[ random16(NUM_LEDS) ] += CRGB::White;
 //  }
-
