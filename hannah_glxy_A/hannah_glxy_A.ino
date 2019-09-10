@@ -49,6 +49,13 @@ void loop()
   // Call the current pattern function once, updating the 'leds' array
   gPatterns[gCurrentPatternNumber]();
 
+// todo: refactor to save resources
+for(int i = 60; i < 73; i++){
+  Serial.print(i);
+      leds[i] = CRGB::DarkBlue;
+}
+
+  
   // send the 'leds' array out to the actual LED strip
   FastLED.show();  
   // insert a delay to keep the framerate modest
@@ -60,22 +67,25 @@ void loop()
 
 }
 
-#define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
 
 void confetti() 
 {
   int chanceOfGlitter = 80;
-  fadeToBlackBy( leds, NUM_LEDS, 10);
   int pos = random16(NUM_LEDS);
   int sat = 128;
-leds[pos] = CHSV(gHue, sat, 255);
-
+  int lastLit = 0;
+delay(400);
+if (pos < 60 || pos > 72){
+  lastLit = pos;
+  leds[pos] = CHSV(gHue, sat, 255);
 //  leds[pos] += CHSV( gHue + random8(64), 200, brighten8_raw(50));
-          Serial.println("luma = ");
-          Serial.println(leds[pos].getLuma()); 
+      
+     // leds[pos].fadeToBlackBy( 125 );
+}
+    fadeToBlackBy( leds, NUM_LEDS, 10);
 
-      leds[pos].fadeToBlackBy( 64 );
+
   }
 
   
