@@ -79,6 +79,8 @@ delay(400);
 if (pos < 60 || pos > 72){
   lastLit = pos;
   leds[pos] = CHSV(gHue, sat, 255);
+
+
 //  leds[pos] += CHSV( gHue + random8(64), 200, brighten8_raw(50));
       
      // leds[pos].fadeToBlackBy( 125 );
