@@ -22,8 +22,12 @@ FASTLED_USING_NAMESPACE
 CRGB leds[NUM_LEDS];
 #define PIN 4 // Output Pin to Data Line on Strip
 #define COLOR_ORDER GRB  // I had to change this for my strip if your color is off then you know.
-int fadeAmount = 1;  // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
+int fadeAmount10 = 1;  // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
+int fadeAmount15 = 1;  // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
+
 int brightness = 0; 
+int brightness10 = 0;
+int brightness15 = 40;
 
 void setup()
 {
@@ -32,17 +36,38 @@ void setup()
 
 void loop()
 { 
-   for(int i = 0; i < NUM_LEDS; i++ )
-   {
-   leds[i].setRGB(0,255,250);  // Set Color HERE!!!
-   leds[i].fadeLightBy(brightness);
-  }
+  pulse10(10, 10);
+  pulse15(15, 10);
+  //  for(int i = 0; i < NUM_LEDS; i++ )
+  //  {
+  //  leds[i].setRGB(50,255,250);  // Set Color HERE!!!
+  //  leds[i].fadeLightBy(brightness);
+  // }
+  
   FastLED.show();
-  brightness = brightness + fadeAmount;
+
+}
+
+void pulse10(int num, int delayTime){
+leds[num].setRGB(50,255,25);  // Set Color HERE!!!
+  brightness10 = brightness10 + fadeAmount10;
   // reverse the direction of the fading at the ends of the fade: 
-  if(brightness == 0 || brightness == 255)
+  if(brightness10 < 1 || brightness10 > 254)
   {
-    fadeAmount = -fadeAmount ; 
+    fadeAmount10 = -fadeAmount10 ; 
   }    
-  delay(9);  // This delay sets speed of the fade. I usually do from 5-75 but you can always go higher.
+  delay(25);  // This delay sets speed of the fade. I usually do from 5-75 but you can always go higher.
+  leds[num].fadeLightBy(brightness10);
+}
+
+void pulse15(int num, int delayTime){
+leds[num].setRGB(50,255,25);  // Set Color HERE!!!
+  brightness15 = brightness15 + fadeAmount15;
+  // reverse the direction of the fading at the ends of the fade: 
+  if(brightness15 < 1 || brightness15 > 254)
+  {
+    fadeAmount15 = -fadeAmount15 ; 
+  }    
+  delay(25);  // This delay sets speed of the fade. I usually do from 5-75 but you can always go higher.
+  leds[num].fadeLightBy(brightness15);
 }
