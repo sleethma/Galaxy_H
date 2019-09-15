@@ -31,26 +31,36 @@ int brightness = 0;
 int brightness10 = 0;
 int brightness13 = 0;
 int brightness15 = 0;
+ int randRed = rand() % 255;
+    int randGreen = rand() % 255;
+      int randBlue = rand() % 255;
 
 void setup()
 {
   FastLED.addLeds<WS2812B, PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
+ 
 }
 
 void loop()
 { 
-  pulse10(10,75,75,75, 2, &brightness10, &fadeAmount10);
   
-  pulse10(12,75,75,180, 2, &brightness13, &fadeAmount13);
 
-  pulse10(15, 0,180,0,2, &brightness15, &fadeAmount15);
+
+
+  pulse10(10,randRed,randGreen,randBlue, 2, &brightness10, &fadeAmount10);
+  
+  pulse10(12,randRed,randGreen,randBlue, 2, &brightness13, &fadeAmount13);
+
+  pulse10(15, randRed,randGreen,randBlue,2, &brightness15, &fadeAmount15);
   
   FastLED.show();
 
 }
 
+
+// todo, generate random color inside this function
 void pulse10(int num, int red, int green, int blue,  int delayTime, int *brightness10P, int *fadeAmount10){
-leds[num].setRGB(red,green,blue);  // Set Color HERE!!!
+leds[num].setRGB(red,green,blue);  
   *brightness10P = *brightness10P + *fadeAmount10;
   // reverse the direction of the fading at the ends of the fade: 
   if(*brightness10P < 1 || *brightness10P > 254)
