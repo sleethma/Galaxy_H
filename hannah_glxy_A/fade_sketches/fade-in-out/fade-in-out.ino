@@ -27,7 +27,7 @@ int fadeAmount15 = 1;  // Set the amount to fade I usually do 5, 10, 15, 20, 25 
 
 int brightness = 0; 
 int brightness10 = 0;
-int brightness15 = 40;
+int brightness15 = 0;
 
 void setup()
 {
@@ -36,8 +36,8 @@ void setup()
 
 void loop()
 { 
-  pulse10(10, 10);
-  pulse15(15, 10);
+  pulse10(10,75,75,75, 10, &brightness10);
+  pulse10(15, 180,180,180,  10, &brightness15);
   //  for(int i = 0; i < NUM_LEDS; i++ )
   //  {
   //  leds[i].setRGB(50,255,250);  // Set Color HERE!!!
@@ -48,16 +48,16 @@ void loop()
 
 }
 
-void pulse10(int num, int delayTime){
-leds[num].setRGB(50,255,25);  // Set Color HERE!!!
-  brightness10 = brightness10 + fadeAmount10;
+void pulse10(int num, int red, int green, int blue,  int delayTime, int *brightness10P){
+leds[num].setRGB(red,green,blue);  // Set Color HERE!!!
+  *brightness10P = *brightness10P + fadeAmount10;
   // reverse the direction of the fading at the ends of the fade: 
-  if(brightness10 < 1 || brightness10 > 254)
+  if(*brightness10P < 1 || *brightness10P > 254)
   {
     fadeAmount10 = -fadeAmount10 ; 
   }    
   delay(25);  // This delay sets speed of the fade. I usually do from 5-75 but you can always go higher.
-  leds[num].fadeLightBy(brightness10);
+  leds[num].fadeLightBy(*brightness10P);
 }
 
 void pulse15(int num, int delayTime){
