@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "fade_sketches\\fade-in-out\\fade-in-out.ino",
+    "port": "COM9"
+}
