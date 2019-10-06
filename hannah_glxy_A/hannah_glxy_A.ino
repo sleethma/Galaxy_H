@@ -1,15 +1,11 @@
 #include <FastLED.h>
 
 FASTLED_USING_NAMESPACE
-
-// FastLED "100-lines-of-code" demo reel, showing just a few 
-// of the kinds of animation patterns you can quickly and easily 
-// compose using FastLED.  
-//
-// This example also shows one easy way to define multiple 
-// animations patterns and have them automatically rotate.
-//
-// -Mark Kriegsman, December 2014
+// Led allocation
+//  1-60 = stars
+// 61 - 71 = tardis
+// 72 -73 = white tardis light
+// 74 - 81 = stars
 
 #if defined(FASTLED_VERSION) && (FASTLED_VERSION < 3001000)
 #warning "Requires FastLED 3.1 or later; check github for latest code."
@@ -26,7 +22,6 @@ CRGB leds[NUM_LEDS];
 #define FRAMES_PER_SECOND  40
 
 void setup() {
-  //////Serial.begin(9600);
   delay(3000); // 3 second delay for recovery
   
   // tell FastLED about the LED strip configuration
@@ -37,7 +32,7 @@ void setup() {
 }
 
 
-// List of patterns to cycle through.  Each is defined as a separate function below.
+// List of patterns to cycle through. 
 typedef void (*SimplePatternList[])();
 SimplePatternList gPatterns = {confetti};
 
@@ -50,10 +45,14 @@ void loop()
   gPatterns[gCurrentPatternNumber]();
 
 // todo: refactor to save resources
-for(int i = 60; i < 73; i++){
-  //Serial.print(i);
+for(int i = 61; i < 72; i++){
       leds[i] = CRGB::DarkBlue;
+      FastLED.delay(50);
+      leds[i].fadeToBlackBy(100);
 }
+leds[73] = CRGB::White;
+leds[72] = CRGB::White;
+
 
   
   // send the 'leds' array out to the actual LED strip
@@ -71,20 +70,23 @@ for(int i = 60; i < 73; i++){
 
 void confetti() 
 {
-  int chanceOfGlitter = 80;
+  int chanceOfGlitter = 200;
   int pos = random16(NUM_LEDS);
+  int randGlitter = random16(NUM_LEDS);
   int sat = 128;
-  int lastLit = 0;
-delay(400);
-if (pos < 60 || pos > 72){
-  lastLit = pos;
-  leds[pos] = CHSV(gHue, sat, 255);
+  int bri = 250;
+delay(200);
+if (pos < 61 || pos > 73){
+  uint8_t briChk = leds[randGlitter].getLuma();
+          if( random8() < chanceOfGlitter && briChk > 20) {
+    leds[ randGlitter ] += CRGB::White;
+    FastLED.delay(50);
+  leds[randGlitter] = CHSV(gHue, sat, bri);
 
-
-//  leds[pos] += CHSV( gHue + random8(64), 200, brighten8_raw(50));
-      
-     // leds[pos].fadeToBlackBy( 125 );
-}
+ }else{
+  leds[pos] = CHSV(gHue, sat, bri);
+ }
+  }
     fadeToBlackBy( leds, NUM_LEDS, 10);
   }
 
@@ -92,9 +94,6 @@ if (pos < 60 || pos > 72){
 
 
 
-//  if( random8() < chanceOfGlitter) {
-//    leds[ random16(NUM_LEDS) ] += CRGB::White;
-//  }
 
 
 //  if( random8() < chanceOfGlitter) {
