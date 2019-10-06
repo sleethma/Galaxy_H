@@ -26,7 +26,7 @@ CRGB leds[NUM_LEDS];
 #define FRAMES_PER_SECOND  40
 
 void setup() {
-  Serial.begin(9600);
+  //////Serial.begin(9600);
   delay(3000); // 3 second delay for recovery
   
   // tell FastLED about the LED strip configuration
@@ -51,7 +51,7 @@ void loop()
 
 // todo: refactor to save resources
 for(int i = 60; i < 73; i++){
-  Serial.print(i);
+  //Serial.print(i);
       leds[i] = CRGB::DarkBlue;
 }
 
@@ -86,8 +86,6 @@ if (pos < 60 || pos > 72){
      // leds[pos].fadeToBlackBy( 125 );
 }
     fadeToBlackBy( leds, NUM_LEDS, 10);
-
-
   }
 
   

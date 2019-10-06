@@ -1,5 +1,5 @@
 {
-    "board": "arduino:avr:uno",
-    "sketch": "fade_sketches\\fade-in-out\\fade-in-out.ino",
+    "board": "adafruit:avr:trinket3",
+    "sketch": "hannah_glxy_A.ino",
     "port": "COM9"
 }
